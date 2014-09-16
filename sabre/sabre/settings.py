@@ -58,8 +58,11 @@ WSGI_APPLICATION = 'sabre.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'sabredata001',
+        'USER': 'sabredata001',
+        'PASSWORD': 'ziZZFJSv4EIcs2cirsYwEtRSzWxSJudRe6ZfIhnf0E5X6wTrMDmF2J1wvV1xrbb',
+        'HOST': 'localhost',
     }
 }
 
