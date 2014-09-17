@@ -23,6 +23,8 @@ class Entry(models.Model):
     modified = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField(Tag)
 
+    objects = EntryQuerySet.as_manager()
+
     def __unicode__(self):
         return self.title
 
