@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'redactor',
     'blog',
 )
 
@@ -86,3 +87,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+REDACTOR_OPTIONS = {'lang': 'en'}
+REDACTOR_UPLOAD = 'blog/uploads/'

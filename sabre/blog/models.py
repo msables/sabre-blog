@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-
+from redactor.fields import RedactorField
 
 class Tag(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
@@ -16,7 +16,7 @@ class EntryQuerySet(models.QuerySet):
 
 class Entry(models.Model):
     title = models.CharField(max_length=200)
-    body = models.TextField()
+    body = RedactorField(verbose_name=u'Entry body')
     slug = models.SlugField(max_length=200, unique=True)
     publish = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
