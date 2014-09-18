@@ -16,7 +16,7 @@ class EntryQuerySet(models.QuerySet):
 
 class Entry(models.Model):
     title = models.CharField(max_length=200)
-    featured_image = models.ImageField(upload_to='blog/uploads/featured/%Y/%m/%d/', null=True, blank=True)
+    featured_image = models.ImageField(upload_to='/blog/uploads/featured/%Y/%m/%d/', null=True, blank=True)
     body = RedactorField(verbose_name=u'Entry body')
     slug = models.SlugField(max_length=200, unique=True)
     publish = models.BooleanField(default=True)
