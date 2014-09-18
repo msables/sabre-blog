@@ -103,7 +103,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader'
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.eggs.Loader'
 )
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'sabre', 'templates'),

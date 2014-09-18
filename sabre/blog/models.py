@@ -35,6 +35,8 @@ class Entry(models.Model):
     def featured_image_preview(self):
         if self.featured_image:
             return u'<img src="%s" width="100px" alt="Image Preview">' % (self.featured_image.url)
+        else:
+            return u'(No Image)'
 
     featured_image_preview.short_description = 'Image Preview'
     featured_image_preview.allow_tags = True
