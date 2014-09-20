@@ -3,10 +3,17 @@ from django.core.urlresolvers import reverse
 from redactor.fields import RedactorField
 
 class Tag(models.Model):
+    name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
 
     def __unicode__(self):
-        return self.slug
+        return self.name
+
+    def get_absolute_url(self):
+        return "/tag/%s/" % (self.slug)
+
+    def post_count(self):
+        return self.posts.count()
 
 
 class EntryQuerySet(models.QuerySet):
@@ -14,7 +21,7 @@ class EntryQuerySet(models.QuerySet):
         return self.filter(publish=True)
 
 
-class Entry(models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=200)
     featured_image = models.ImageField(upload_to='blog/featured/%Y/%m/%d/', null=True, blank=True)
     body = RedactorField(verbose_name=u'Entry body')
@@ -22,7 +29,7 @@ class Entry(models.Model):
     publish = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, related_name='posts')
 
     objects = EntryQuerySet.as_manager()
 
