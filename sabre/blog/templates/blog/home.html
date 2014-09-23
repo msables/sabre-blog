@@ -1,12 +1,15 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
+{% if tag.name %}
+<h1>{{ tag.name }}</h1>
+{% endif %}
 {% for post in object_list %}
     <article class="post">
         <h2><a href="{% url "entry_detail" slug=post.slug %}">{{ post.title }}</a></h2>
         <h3>
             {% for tag in post.tags.all %}
-                {{ tag.name }}{{ tag.post_count }}
+                <a href="{% url "tag_article_list" slug=tag.slug %}">{{ tag.name }}{{ tag.post_count }}</a>
             {% endfor %}
         </h3>
     </article>

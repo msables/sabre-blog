@@ -2,6 +2,27 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from redactor.fields import RedactorField
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='blog/category/', null=True, blank=True)
+    slug = models.SlugField(max_length=200, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("category_posts")
+
+    def post_count(self):
+        return self.posts.count()
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
@@ -10,10 +31,14 @@ class Tag(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return "/tag/%s/" % (self.slug)
+        return reverse("tag_posts", kwargs={"slug": self.slug})
 
     def post_count(self):
         return self.posts.count()
+
+    class Meta:
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
 
 
 class EntryQuerySet(models.QuerySet):
@@ -30,6 +55,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField(Tag, related_name='posts')
+    category = models.ForeignKey(Category, related_name='posts', null=True, blank=True)
 
     objects = EntryQuerySet.as_manager()
 
@@ -49,6 +75,6 @@ class Post(models.Model):
     featured_image_preview.allow_tags = True
 
     class Meta:
-        verbose_name = "Blog Entry"
-        verbose_name_plural = "Blog Entries"
+        verbose_name = "Blog Post"
+        verbose_name_plural = "Blog Posts"
         ordering = ["-created"]
