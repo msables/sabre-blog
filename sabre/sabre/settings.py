@@ -99,6 +99,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
+    'blog.context_processors.categories_list',
 )
 
 TEMPLATE_LOADERS = (

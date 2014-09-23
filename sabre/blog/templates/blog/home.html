@@ -4,14 +4,22 @@
 {% if tag.name %}
 <h1>{{ tag.name }}</h1>
 {% endif %}
+{% if category.name %}
+<h1>{{ category.name }}</h1>
+{% endif %}
 {% for post in object_list %}
     <article class="post">
-        <h2><a href="{% url "entry_detail" slug=post.slug %}">{{ post.title }}</a></h2>
+        <h2><a href="{% url "post_detail" slug=post.slug %}">{{ post.title }}</a></h2>
         <h3>
             {% for tag in post.tags.all %}
-                <a href="{% url "tag_article_list" slug=tag.slug %}">{{ tag.name }}{{ tag.post_count }}</a>
+                <a href="{% url "tag_posts" slug=tag.slug %}">{{ tag.name }}{{ tag.post_count }}</a>
             {% endfor %}
         </h3>
     </article>
 {% endfor %}
+<ul>
+    {% for category in categories_list %}
+        <li><a href="{% url "category_posts" slug=category.slug %}">{{ category.name }}</a></li>
+    {% endfor %}
+</ul>
 {% endblock content %}

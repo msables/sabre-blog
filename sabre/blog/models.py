@@ -63,7 +63,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("entry_detail", kwargs={"slug": self.slug})
+        return reverse("post_detail", kwargs={"slug": self.slug})
 
     def featured_image_preview(self):
         if self.featured_image:

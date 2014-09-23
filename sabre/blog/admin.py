@@ -4,6 +4,9 @@ from  blog.models import Post, Tag, Category
 class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+
 class EntryAdmin(admin.ModelAdmin):
     list_display = ("title", "created")
     prepopulated_fields = {"slug": ("title",)}
@@ -11,4 +14,4 @@ class EntryAdmin(admin.ModelAdmin):
 
 admin.site.register(Post, EntryAdmin)
 admin.site.register(Tag, TagAdmin)
-admin.site.register(Category)
+admin.site.register(Category, CategoryAdmin)
